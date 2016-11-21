@@ -1,0 +1,16 @@
+{
+  "name": "whatson-web/media-bundle",
+  "type": "symfony-bundle",
+  "description": "Symfony - Whatson Web - MediaBundle",
+  "homepage": "https://github.com/whatson-web/MediaBundle",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Whatson Web - Developers",
+      "email": "dev@whatson-web.com"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.9"
+  }
+}

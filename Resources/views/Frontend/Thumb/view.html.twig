@@ -1,0 +1,10 @@
+{% if images is not empty %}
+    <picture>
+        {% if images['responsive'] is defined %}
+            {% for maxWidth, imagePath in images['responsive'] %}
+                <source media="(max-width: {{ maxWidth }}px)" srcset="{{ wh_media_baseurl ~ imagePath }}">
+            {% endfor %}
+        {% endif %}
+        <img src="{{ wh_media_baseurl ~ images['default'] }}" alt="{{ file.alt }}">
+    </picture>
+{% endif %}
