@@ -124,21 +124,24 @@ class ThumbExtension extends \Twig_Extension
 
 			$images['default'] = '/' . $cachedPath;
 
-			foreach ($formatConfig['breakpointConfigurations'] as $maxWidth => $configuration) {
-				foreach ($configuration as $key => $value) {
-					if ($value) {
-						$glideData[$key] = $value;
+			if (!empty($formatConfig['breakpointConfigurations'])) {
+
+				foreach ($formatConfig['breakpointConfigurations'] as $maxWidth => $configuration) {
+					foreach ($configuration as $key => $value) {
+						if ($value) {
+							$glideData[$key] = $value;
+						}
 					}
+
+					$cachedPath = $server->makeImage(
+						$server->getSourcePath($file->getUrl()),
+						$glideData
+					);
+
+					$images['responsive'][$maxWidth] = '/' . $cachedPath;
 				}
-
-				$cachedPath = $server->makeImage(
-					$server->getSourcePath($file->getUrl()),
-					$glideData
-				);
-
-				$images['responsive'][$maxWidth] = '/' . $cachedPath;
+				ksort($images['responsive']);
 			}
-			ksort($images['responsive']);
 		}
 
 		return $this->container->get('twig')->render(
