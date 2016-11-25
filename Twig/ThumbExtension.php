@@ -98,7 +98,7 @@ class ThumbExtension extends \Twig_Extension
 			[
 				'source'            => $filesystem,
 				'cache'             => $filesystem,
-				'cache_path_prefix' => 'cache',
+				'cache_path_prefix' => '.cache',
 			]
 		);
 		$server = $serverFactory->getServer();
