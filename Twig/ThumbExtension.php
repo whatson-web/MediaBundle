@@ -95,10 +95,11 @@ class ThumbExtension extends \Twig_Extension
 		$filesystem = $this->container->get('oneup_flysystem.wh_aws_s3_filesystem');
 
 		$serverFactory = new ServerFactory(
-			array(
-				'source' => $filesystem,
-				'cache'  => $filesystem,
-			)
+			[
+				'source'            => $filesystem,
+				'cache'             => $filesystem,
+				'cache_path_prefix' => 'cache',
+			]
 		);
 		$server = $serverFactory->getServer();
 
