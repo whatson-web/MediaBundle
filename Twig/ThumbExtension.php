@@ -76,6 +76,7 @@ class ThumbExtension extends \Twig_Extension
 		$mediaConfig = $this->container->getParameter('wh_media');
 
 		$entityClass = get_class($entity);
+		$entityClass = str_replace('Proxies\__CG__\\', '', $entityClass);
 		if (!isset($mediaConfig['entities'][$entityClass])) {
 			throw new NotFoundHttpException(
 				'L\'entité "' . $entityClass . '" n\'est pas déclarée en dessous de "wh_media.entities"'
