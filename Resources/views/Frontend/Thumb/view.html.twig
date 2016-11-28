@@ -1,4 +1,5 @@
-{% if images is not empty %}
+{% spaceless %}
+{% if images is defined and images is not empty %}
     <picture>
         {% if images['responsive'] is defined %}
             {% for maxWidth, imagePath in images['responsive'] %}
@@ -8,3 +9,7 @@
         <img src="{{ wh_media_baseurl ~ images['default'] }}" alt="{{ file.alt }}">
     </picture>
 {% endif %}
+{% if url is defined %}
+    {{ wh_media_baseurl ~ url }}
+{% endif %}
+{% endspaceless %}

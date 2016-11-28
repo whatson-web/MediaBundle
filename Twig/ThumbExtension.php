@@ -50,13 +50,14 @@ class ThumbExtension extends \Twig_Extension
 	}
 
 	/**
-	 * @param $entity
-	 * @param $field
-	 * @param $format
+	 * @param      $entity
+	 * @param      $field
+	 * @param      $format
+	 * @param bool $getUrl
 	 *
-	 * @return mixed|string
+	 * @return string
 	 */
-	public function thumbFilter($entity, $field, $format)
+	public function thumbFilter($entity, $field, $format, $getUrl = false)
 	{
 		$fileId = null;
 		if ($entity->{'get' . ucfirst($field)}()) {
@@ -125,6 +126,14 @@ class ThumbExtension extends \Twig_Extension
 			);
 
 			$images['default'] = '/' . $cachedPath;
+			if ($getUrl) {
+				return $this->container->get('twig')->render(
+					'WHMediaBundle:Frontend/Thumb:view.html.twig',
+					array(
+						'url' => $images['default'],
+					)
+				);
+			}
 
 			if (!empty($formatConfig['breakpointConfigurations'])) {
 
