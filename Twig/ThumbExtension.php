@@ -94,7 +94,7 @@ class ThumbExtension extends \Twig_Extension
 			);
 		}
 
-		$filesystem = $this->container->get('oneup_flysystem.wh_aws_s3_filesystem');
+		$filesystem = $this->container->get('oneup_flysystem.media_ftp_filesystem');
 
 		$serverFactory = new ServerFactory(
 			[
