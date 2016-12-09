@@ -74,84 +74,87 @@ class ThumbExtension extends \Twig_Extension
 				),
 			)
 		);
-		$mediaConfig = $this->container->getParameter('wh_media');
-
-		$entityClass = get_class($entity);
-		$entityClass = str_replace('Proxies\__CG__\\', '', $entityClass);
-		if (!isset($mediaConfig['entities'][$entityClass])) {
-			throw new NotFoundHttpException(
-				'L\'entité "' . $entityClass . '" n\'est pas déclarée en dessous de "wh_media.entities"'
-			);
-		}
-		if (!isset($mediaConfig['entities'][$entityClass][$field])) {
-			throw new NotFoundHttpException(
-				'Le champ "' . $field . '" n\'est pas déclaré en dessous de "wh_media.entities.' . $entityClass . '"'
-			);
-		}
-		if (!in_array($format, $mediaConfig['entities'][$entityClass][$field]['usedFormats'])) {
-			throw new NotFoundHttpException(
-				'Le format "' . $format . '" n\'est pas déclaré en dessous de "wh_media:entities:' . $entityClass . ':usedFormats"'
-			);
-		}
-
-		$filesystem = $this->container->get('oneup_flysystem.media_ftp_filesystem');
-
-		$serverFactory = new ServerFactory(
-			[
-				'source'            => $filesystem,
-				'cache'             => $filesystem,
-				'cache_path_prefix' => '.cache',
-			]
-		);
-		$server = $serverFactory->getServer();
-
 		$images = array();
-		if ($format != '' && !empty($mediaConfig['formats'][$format])) {
-			$formatConfig = $mediaConfig['formats'][$format];
 
-			$glideData = array();
+		if ($file) {
+			$mediaConfig = $this->container->getParameter('wh_media');
 
-			foreach ($formatConfig['configuration'] as $key => $value) {
-				if ($value) {
-					$glideData[$key] = $value;
-				}
+			$entityClass = get_class($entity);
+			$entityClass = str_replace('Proxies\__CG__\\', '', $entityClass);
+			if (!isset($mediaConfig['entities'][$entityClass])) {
+				throw new NotFoundHttpException(
+					'L\'entité "' . $entityClass . '" n\'est pas déclarée en dessous de "wh_media.entities"'
+				);
 			}
-
-			$response = new SymfonyResponseFactory();
-			$server->setResponseFactory($response);
-
-			$cachedPath = $server->makeImage(
-				$server->getSourcePath($file->getUrl()),
-				$glideData
-			);
-
-			$images['default'] = '/' . $cachedPath;
-			if ($getUrl) {
-				return $this->container->get('twig')->render(
-					'WHMediaBundle:Frontend/Thumb:view.html.twig',
-					array(
-						'url' => $images['default'],
-					)
+			if (!isset($mediaConfig['entities'][$entityClass][$field])) {
+				throw new NotFoundHttpException(
+					'Le champ "' . $field . '" n\'est pas déclaré en dessous de "wh_media.entities.' . $entityClass . '"'
+				);
+			}
+			if (!in_array($format, $mediaConfig['entities'][$entityClass][$field]['usedFormats'])) {
+				throw new NotFoundHttpException(
+					'Le format "' . $format . '" n\'est pas déclaré en dessous de "wh_media:entities:' . $entityClass . ':usedFormats"'
 				);
 			}
 
-			if (!empty($formatConfig['breakpointConfigurations'])) {
+			$filesystem = $this->container->get('oneup_flysystem.media_ftp_filesystem');
 
-				foreach ($formatConfig['breakpointConfigurations'] as $maxWidth => $configuration) {
-					foreach ($configuration as $key => $value) {
-						if ($value) {
-							$glideData[$key] = $value;
-						}
+			$serverFactory = new ServerFactory(
+				[
+					'source'            => $filesystem,
+					'cache'             => $filesystem,
+					'cache_path_prefix' => '.cache',
+				]
+			);
+			$server = $serverFactory->getServer();
+
+			if ($format != '' && !empty($mediaConfig['formats'][$format])) {
+				$formatConfig = $mediaConfig['formats'][$format];
+
+				$glideData = array();
+
+				foreach ($formatConfig['configuration'] as $key => $value) {
+					if ($value) {
+						$glideData[$key] = $value;
 					}
-
-					$cachedPath = $server->makeImage(
-						$server->getSourcePath($file->getUrl()),
-						$glideData
-					);
-
-					$images['responsive'][$maxWidth] = '/' . $cachedPath;
 				}
-				ksort($images['responsive']);
+
+				$response = new SymfonyResponseFactory();
+				$server->setResponseFactory($response);
+
+				$cachedPath = $server->makeImage(
+					$server->getSourcePath($file->getUrl()),
+					$glideData
+				);
+
+				$images['default'] = '/' . $cachedPath;
+				if ($getUrl) {
+					return $this->container->get('twig')->render(
+						'WHMediaBundle:Frontend/Thumb:view.html.twig',
+						array(
+							'url' => $images['default'],
+						)
+					);
+				}
+
+				if (!empty($formatConfig['breakpointConfigurations'])) {
+
+					foreach ($formatConfig['breakpointConfigurations'] as $maxWidth => $configuration) {
+						foreach ($configuration as $key => $value) {
+							if ($value) {
+								$glideData[$key] = $value;
+							}
+						}
+
+						$cachedPath = $server->makeImage(
+							$server->getSourcePath($file->getUrl()),
+							$glideData
+						);
+
+						$images['responsive'][$maxWidth] = '/' . $cachedPath;
+					}
+					ksort($images['responsive']);
+				}
 			}
 		}
 
