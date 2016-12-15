@@ -97,7 +97,7 @@ class ThumbExtension extends \Twig_Extension
 				);
 			}
 
-			$filesystem = $this->container->get('oneup_flysystem.media_ftp_filesystem');
+			$filesystem = $this->container->get('oneup_flysystem.media_filesystem');
 
 			$serverFactory = new ServerFactory(
 				[
