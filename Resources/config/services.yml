@@ -4,6 +4,6 @@ services:
         arguments: ["@service_container"]
         tags:
             - {name: twig.extension}
-#    wh_media.example:
-#        class: WH\MediaBundle\Example
-#        arguments: ["@service_id", "plain_value", %parameter%]
+    wh_media.filemanager:
+        class: WH\MediaBundle\Services\FileManager
+        arguments: ['@service_container']
