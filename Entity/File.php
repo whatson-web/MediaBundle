@@ -97,6 +97,16 @@ class File
 	/**
 	 * @return mixed|string
 	 */
+	public function getFileName()
+	{
+		$fileName = preg_replace('#.*\/(.*\..*)#', '$1', $this->url);
+
+		return $fileName;
+	}
+
+	/**
+	 * @return mixed|string
+	 */
 	public function getFileExtension()
 	{
 		$fileExtension = preg_replace('#.*\/.*\.(.*)#', '$1', $this->url);
