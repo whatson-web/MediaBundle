@@ -76,7 +76,7 @@ class ThumbExtension extends \Twig_Extension
 		);
 		$images = array();
 
-		if ($file) {
+		if ($file && $file->getUrl()) {
 			$mediaConfig = $this->container->getParameter('wh_media');
 
 			$entityClass = get_class($entity);
