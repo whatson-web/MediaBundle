@@ -2,10 +2,7 @@
 
 namespace WH\MediaBundle\Twig;
 
-use League\Glide\Responses\SymfonyResponseFactory;
-use League\Glide\ServerFactory;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class FileExtension
@@ -24,7 +21,6 @@ class FileExtension extends \Twig_Extension
      */
     public function __construct(ContainerInterface $container)
     {
-
         $this->container = $container;
     }
 
@@ -92,6 +88,6 @@ class FileExtension extends \Twig_Extension
 
     public function getName()
     {
-        return 'media_thumb_extension';
+        return 'media_file_extension';
     }
 }
