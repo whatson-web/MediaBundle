@@ -1,0 +1,14 @@
+{% spaceless %}
+    {% if file is defined %}
+        <a href="{{ wh_media_baseurl ~ file.url }}" target="_blank">
+            {% if file.alt is not empty %}
+                {{ file.alt }}
+            {% else %}
+                {{ file.fileName }}
+            {% endif %}
+        </a>
+    {% endif %}
+    {% if url is defined %}
+        {{ wh_media_baseurl ~ url }}
+    {% endif %}
+{% endspaceless %}
