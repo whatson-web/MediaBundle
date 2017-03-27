@@ -13,124 +13,124 @@ use Doctrine\ORM\Mapping as ORM;
 class File
 {
 
-	/**
-	 * @var int
-	 *
-	 * @ORM\Column(name="id", type="integer")
-	 * @ORM\Id
-	 * @ORM\GeneratedValue(strategy="AUTO")
-	 */
-	private $id;
+    /**
+     * @return mixed|string
+     */
+    public function getFileName()
+    {
+        $fileName = preg_replace('#.*\/(.*\..*)#', '$1', $this->url);
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="url", type="string", length=255, nullable=true)
-	 */
-	private $url;
+        return $fileName;
+    }
 
-	/**
-	 * @var string
-	 *
-	 * @ORM\Column(name="alt", type="string", length=255, nullable=true)
-	 */
-	private $alt;
+    /**
+     * @return mixed|string
+     */
+    public function getFileExtension()
+    {
+        $fileExtension = preg_replace('#.*\/.*\.(.*)#', '$1', $this->url);
+        $fileExtension = strtolower($fileExtension);
 
-	/**
-	 * Get id
-	 *
-	 * @return int
-	 */
-	public function getId()
-	{
-		return $this->id;
-	}
+        return $fileExtension;
+    }
 
-	/**
-	 * Set url
-	 *
-	 * @param string $url
-	 *
-	 * @return File
-	 */
-	public function setUrl($url)
-	{
-		$this->url = $url;
+    /**
+     * @return bool
+     */
+    public function getIsImage()
+    {
+        $imageFileExtensions = array(
+            'jpg',
+            'jpeg',
+            'gif',
+            'png',
+        );
+        if (in_array($this->getFileExtension(), $imageFileExtensions)) {
+            return true;
+        }
 
-		return $this;
-	}
+        return false;
+    }
 
-	/**
-	 * Get url
-	 *
-	 * @return string
-	 */
-	public function getUrl()
-	{
-		return $this->url;
-	}
+    /**
+     * @var int
+     *
+     * @ORM\Column(name="id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="AUTO")
+     */
+    private $id;
 
-	/**
-	 * Set alt
-	 *
-	 * @param string $alt
-	 *
-	 * @return File
-	 */
-	public function setAlt($alt)
-	{
-		$this->alt = $alt;
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="url", type="string", length=255, nullable=true)
+     */
+    private $url;
 
-		return $this;
-	}
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="alt", type="string", length=255, nullable=true)
+     */
+    private $alt;
 
-	/**
-	 * Get alt
-	 *
-	 * @return string
-	 */
-	public function getAlt()
-	{
-		return $this->alt;
-	}
+    /**
+     * Get id
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
 
-	/**
-	 * @return mixed|string
-	 */
-	public function getFileName()
-	{
-		$fileName = preg_replace('#.*\/(.*\..*)#', '$1', $this->url);
+    /**
+     * Set url
+     *
+     * @param string $url
+     *
+     * @return File
+     */
+    public function setUrl($url)
+    {
+        $this->url = $url;
 
-		return $fileName;
-	}
+        return $this;
+    }
 
-	/**
-	 * @return mixed|string
-	 */
-	public function getFileExtension()
-	{
-		$fileExtension = preg_replace('#.*\/.*\.(.*)#', '$1', $this->url);
-		$fileExtension = strtolower($fileExtension);
+    /**
+     * Get url
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
 
-		return $fileExtension;
-	}
+    /**
+     * Set alt
+     *
+     * @param string $alt
+     *
+     * @return File
+     */
+    public function setAlt($alt)
+    {
+        $this->alt = $alt;
 
-	/**
-	 * @return bool
-	 */
-	public function getIsImage()
-	{
-		$imageFileExtensions = array(
-			'jpg',
-			'jpeg',
-			'gif',
-			'png',
-		);
-		if (in_array($this->getFileExtension(), $imageFileExtensions)) {
-			return true;
-		}
+        return $this;
+    }
 
-		return false;
-	}
+    /**
+     * Get alt
+     *
+     * @return string
+     */
+    public function getAlt()
+    {
+        return $this->alt;
+    }
 }
 

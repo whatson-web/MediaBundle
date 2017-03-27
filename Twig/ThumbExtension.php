@@ -24,7 +24,6 @@ class ThumbExtension extends \Twig_Extension
      */
     public function __construct(ContainerInterface $container)
     {
-
         $this->container = $container;
     }
 
@@ -76,7 +75,8 @@ class ThumbExtension extends \Twig_Extension
         );
         $images = array();
 
-        if ($file) {
+        if ($file && $file->getUrl()) {
+
             $mediaConfig = $this->container->getParameter('wh_media');
 
             $entityClass = get_class($entity);
@@ -121,6 +121,7 @@ class ThumbExtension extends \Twig_Extension
 
                 $response = new SymfonyResponseFactory();
                 $server->setResponseFactory($response);
+
 
                 if ($server->sourceFileExists($file->getUrl())) {
                     $cachedPath = $server->makeImage(

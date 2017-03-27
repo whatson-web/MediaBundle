@@ -17,7 +17,6 @@ class FileRepository extends BaseRepository
 	 */
 	public function getEntityNameQueryBuilder()
 	{
-
 		return 'file';
 	}
 }

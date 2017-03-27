@@ -4,6 +4,11 @@ services:
         arguments: ["@service_container"]
         tags:
             - {name: twig.extension}
+    wh_media.twig.file:
+        class: WH\MediaBundle\Twig\FileExtension
+        arguments: ["@service_container"]
+        tags:
+            - {name: twig.extension}
     wh_media.filemanager:
         class: WH\MediaBundle\Services\FileManager
         arguments: ['@service_container']
