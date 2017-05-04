@@ -29,20 +29,20 @@ class FileExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array(
+        return [
             new \Twig_SimpleFilter(
                 'wh_file',
-                array(
+                [
                     $this,
                     'fileFilter',
-                ),
-                array(
-                    'is_safe' => array(
+                ],
+                [
+                    'is_safe' => [
                         'html',
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     /**
@@ -63,14 +63,14 @@ class FileExtension extends \Twig_Extension
 
         $file = $em->getRepository('WHMediaBundle:File')->get(
             'one',
-            array(
-                'conditions' => array(
+            [
+                'conditions' => [
                     'file.id' => $fileId,
-                ),
-            )
+                ],
+            ]
         );
 
-        $renderVars = array();
+        $renderVars = [];
 
         if ($file && $file->getUrl()) {
             if ($getUrl) {

@@ -16,49 +16,49 @@ use Symfony\Component\Form\FormBuilderInterface;
 class FileType extends AbstractType
 {
 
-	/**
-	 * @param FormBuilderInterface $builder
-	 * @param array                $options
-	 */
-	public function buildForm(FormBuilderInterface $builder, array $options)
-	{
-		$builder
-			->add(
-				'url',
-				ElFinderType::class,
-				array(
-					'label'    => 'Url :',
-					'required' => false,
-				)
-			)
-			->add(
-				'alt',
-				TextType::class,
-				array(
-					'label'    => 'Texte alternatif (alt) :',
-					'required' => false,
-				)
-			);
-	}
+    /**
+     * @param FormBuilderInterface $builder
+     * @param array                $options
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $builder
+            ->add(
+                'url',
+                ElFinderType::class,
+                [
+                    'label'    => 'Url :',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'alt',
+                TextType::class,
+                [
+                    'label'    => 'Texte alternatif (alt) :',
+                    'required' => false,
+                ]
+            );
+    }
 
-	/**
-	 * @param OptionsResolver $resolver
-	 */
-	public function configureOptions(OptionsResolver $resolver)
-	{
-		$resolver->setDefaults(
-			array(
-				'data_class' => 'WH\MediaBundle\Entity\File',
-			)
-		);
-	}
+    /**
+     * @param OptionsResolver $resolver
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        $resolver->setDefaults(
+            [
+                'data_class' => 'WH\MediaBundle\Entity\File',
+            ]
+        );
+    }
 
-	/**
-	 * @return string
-	 */
-	public function getName()
-	{
-		return 'wh_mediabundle_file';
-	}
+    /**
+     * @return string
+     */
+    public function getName()
+    {
+        return 'wh_mediabundle_file';
+    }
 
 }

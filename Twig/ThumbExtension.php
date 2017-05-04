@@ -32,20 +32,20 @@ class ThumbExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array(
+        return [
             new \Twig_SimpleFilter(
                 'wh_thumb',
-                array(
+                [
                     $this,
                     'thumbFilter',
-                ),
-                array(
-                    'is_safe' => array(
+                ],
+                [
+                    'is_safe' => [
                         'html',
-                    ),
-                )
+                    ],
+                ]
             ),
-        );
+        ];
     }
 
     /**
@@ -67,13 +67,13 @@ class ThumbExtension extends \Twig_Extension
 
         $file = $em->getRepository('WHMediaBundle:File')->get(
             'one',
-            array(
-                'conditions' => array(
+            [
+                'conditions' => [
                     'file.id' => $fileId,
-                ),
-            )
+                ],
+            ]
         );
-        $images = array();
+        $images = [];
 
         if ($file && $file->getUrl()) {
 
@@ -111,7 +111,7 @@ class ThumbExtension extends \Twig_Extension
             if ($format != '' && !empty($mediaConfig['formats'][$format])) {
                 $formatConfig = $mediaConfig['formats'][$format];
 
-                $glideData = array();
+                $glideData = [];
 
                 foreach ($formatConfig['configuration'] as $key => $value) {
                     if ($value) {
@@ -133,9 +133,9 @@ class ThumbExtension extends \Twig_Extension
                     if ($getUrl) {
                         return $this->container->get('twig')->render(
                             'WHMediaBundle:Frontend/Thumb:view.html.twig',
-                            array(
+                            [
                                 'url' => $images['default'],
-                            )
+                            ]
                         );
                     }
 
@@ -163,10 +163,10 @@ class ThumbExtension extends \Twig_Extension
 
         return $this->container->get('twig')->render(
             'WHMediaBundle:Frontend/Thumb:view.html.twig',
-            array(
+            [
                 'file'   => $file,
                 'images' => $images,
-            )
+            ]
         );
     }
 

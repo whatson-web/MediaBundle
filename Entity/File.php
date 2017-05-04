@@ -39,12 +39,12 @@ class File
      */
     public function getIsImage()
     {
-        $imageFileExtensions = array(
+        $imageFileExtensions = [
             'jpg',
             'jpeg',
             'gif',
             'png',
-        );
+        ];
         if (in_array($this->getFileExtension(), $imageFileExtensions)) {
             return true;
         }
