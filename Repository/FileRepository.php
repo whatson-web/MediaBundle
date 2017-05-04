@@ -11,12 +11,5 @@ use WH\LibBundle\Repository\BaseRepository;
  */
 class FileRepository extends BaseRepository
 {
-
-    /**
-     * @return string
-     */
-    public function getEntityNameQueryBuilder()
-    {
-        return 'file';
-    }
+    public $entityName = 'file';
 }
