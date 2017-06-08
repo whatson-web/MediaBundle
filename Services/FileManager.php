@@ -53,7 +53,7 @@ class FileManager
     public function getFileContent(File $file)
     {
         $filesystem = $this->container->get('oneup_flysystem.media_filesystem');
-        $fileContent = $filesystem->read($file->getUrl());
+        $fileContent = $filesystem->read(urldecode($file->getUrl()));
 
         return $fileContent;
     }
