@@ -1,12 +1,22 @@
 {% spaceless %}
     {% if file is defined %}
-        <a href="{{ wh_media_baseurl ~ file.url }}" target="_blank">
-            {% if file.alt is not empty %}
-                {{ file.alt }}
-            {% else %}
-                {{ file.fileName }}
-            {% endif %}
-        </a>
+        {% if file.url  %}
+            <a href="{{ wh_media_baseurl ~ file.url }}" target="_blank">
+                {% if file.alt is not empty %}
+                    {{ file.alt }}
+                {% else %}
+                    {{ file.fileName }}
+                {% endif %}
+            </a>
+        {% elseif file.translatableUrl %}
+            <a href="{{ wh_media_baseurl ~ file.translatableUrl }}" target="_blank">
+                {% if file.alt is not empty %}
+                    {{ file.alt }}
+                {% else %}
+                    {{ file.fileName }}
+                {% endif %}
+            </a>
+        {% endif %}
     {% endif %}
     {% if url is defined %}
         {{ wh_media_baseurl ~ url }}

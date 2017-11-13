@@ -80,6 +80,14 @@ class FileExtension extends \Twig_Extension
             }
         }
 
+        if ($file && $file->getTranslatableUrl()) {
+            if ($getUrl) {
+                $renderVars['url'] = $file->getUrl();
+            } else {
+                $renderVars['file'] = $file;
+            }
+        }
+
         return $this->container->get('twig')->render(
             'WHMediaBundle:Frontend/File:view.html.twig',
             $renderVars

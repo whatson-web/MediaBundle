@@ -75,7 +75,13 @@ class ThumbExtension extends \Twig_Extension
         );
         $images = [];
 
-        if ($file && $file->getUrl()) {
+        if ($file && $file->getUrl()){
+            $fileUrl = $file->getUrl();
+        } elseif ($file && $file->getTranslatableUrl()) {
+            $fileUrl = $file->getUrl();
+        }
+
+        if ($file && $fileUrl ) {
 
             $mediaConfig = $this->container->getParameter('wh_media');
 
@@ -123,9 +129,9 @@ class ThumbExtension extends \Twig_Extension
                 $server->setResponseFactory($response);
 
 
-                if ($server->sourceFileExists($file->getUrl())) {
+                if ($server->sourceFileExists($fileUrl)) {
                     $cachedPath = $server->makeImage(
-                        $server->getSourcePath($file->getUrl()),
+                        $server->getSourcePath($fileUrl),
                         $glideData
                     );
 
@@ -149,7 +155,7 @@ class ThumbExtension extends \Twig_Extension
                             }
 
                             $cachedPath = $server->makeImage(
-                                $server->getSourcePath($file->getUrl()),
+                                $server->getSourcePath($fileUrl),
                                 $glideData
                             );
 

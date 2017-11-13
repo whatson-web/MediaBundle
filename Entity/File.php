@@ -3,6 +3,7 @@
 namespace WH\MediaBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 /**
  * File
@@ -76,6 +77,14 @@ class File
     private $alt;
 
     /**
+     * @var string
+     *
+     * @Gedmo\Translatable
+     * @ORM\Column(name="translatableUrl", type="string", length=255, nullable=true)
+     */
+    private $translatableUrl;
+
+    /**
      * Get id
      *
      * @return int
@@ -132,5 +141,30 @@ class File
     {
         return $this->alt;
     }
+
+    /**
+     * Set translatableUrl
+     *
+     * @param string $translatableUrl
+     *
+     * @return File
+     */
+    public function setTranslatableUrl($translatableUrl)
+    {
+        $this->translatableUrl = $translatableUrl;
+
+        return $this;
+    }
+
+    /**
+     * Get translatableUrl
+     *
+     * @return string
+     */
+    public function getTranslatableUrl()
+    {
+        return $this->translatableUrl;
+    }
+
 }
 
