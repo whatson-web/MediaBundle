@@ -82,7 +82,7 @@ class FileExtension extends \Twig_Extension
 
         if ($file && $file->getTranslatableUrl()) {
             if ($getUrl) {
-                $renderVars['url'] = $file->getUrl();
+                $renderVars['url'] = $file->getTranslatableUrl();
             } else {
                 $renderVars['file'] = $file;
             }
