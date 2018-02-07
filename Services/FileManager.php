@@ -4,6 +4,8 @@ namespace WH\MediaBundle\Services;
 
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use WH\MediaBundle\Entity\File;
+
 
 /**
  * Class FileManager
@@ -40,4 +42,17 @@ class FileManager
 
         return true;
     }
+
+    /**
+     * @param File $file
+     *
+     * @return string
+     */
+    public function getFileContent(File $file)
+    {
+        $filesystem = $this->container->get('oneup_flysystem.media_filesystem');
+        $fileContent = $filesystem->read(urldecode($file->getUrl()));
+        return $fileContent;
+    }
+
 }
