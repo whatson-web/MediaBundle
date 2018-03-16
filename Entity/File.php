@@ -2,6 +2,7 @@
 
 namespace WH\MediaBundle\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 
@@ -10,6 +11,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  *
  * @ORM\Table(name="file")
  * @ORM\Entity(repositoryClass="WH\MediaBundle\Repository\FileRepository")
+ * @ApiResource()
  */
 class File
 {
