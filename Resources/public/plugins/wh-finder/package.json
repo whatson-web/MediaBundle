@@ -1,0 +1,12 @@
+{
+  "name": "wh-finder",
+  "version": "0.0.1",
+  "description": "Finder build in react",
+
+  "repository": "https://github.com/jeromelebleu26/wh-finder.git",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "Jerome lebleu",
+  "license": "Apache-2.0"
+}

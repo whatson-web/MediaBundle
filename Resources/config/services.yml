@@ -12,3 +12,6 @@ services:
     wh_media.filemanager:
         class: WH\MediaBundle\Services\FileManager
         arguments: ['@service_container']
+    WH\MediaBundle\Form\Backend\FileType:
+        arguments: ['@doctrine.orm.entity_manager']
+        tags: [form.type]

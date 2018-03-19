@@ -6,7 +6,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use WH\MediaBundle\Entity\File;
 
-
 /**
  * Class FileManager
  *
@@ -36,9 +35,22 @@ class FileManager
     {
         $filesystem = $this->container->get('oneup_flysystem.media_filesystem');
         $filesystem->put(
-            $basePath . $uploadedFile->getClientOriginalName(),
+            $basePath.$uploadedFile->getClientOriginalName(),
             file_get_contents($uploadedFile->getRealPath())
         );
+
+        return true;
+    }
+
+    /**
+     * @param $filePath
+     *
+     * @return bool
+     */
+    public function deleteFile($filePath)
+    {
+        $filesystem = $this->container->get('oneup_flysystem.media_filesystem');
+        $filesystem->delete($filePath);
 
         return true;
     }
@@ -52,6 +64,7 @@ class FileManager
     {
         $filesystem = $this->container->get('oneup_flysystem.media_filesystem');
         $fileContent = $filesystem->read(urldecode($file->getUrl()));
+
         return $fileContent;
     }
 

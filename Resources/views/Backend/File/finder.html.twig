@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang=en>
+<head>
+    <meta charset=utf-8>
+    <meta http-equiv=X-UA-Compatible content="IE=edge">
+    <meta name=viewport content="width=device-width,initial-scale=1,shrink-to-fit=no">
+    <meta name=description content="WH finder from whatson web">
+    <meta name=author content="Whatson web">
+    <link rel="shortcut icon" href=img/favicon.png>
+    <title>WH Finder</title>
+    <script>
+      var CONF = {
+        url: '',
+        endPointMedia: '/api/files',
+        assetUrl: '{{ wh_media_baseurl }}',
+      };
+    </script>
+    <link href="{{ asset('bundles/whmedia/plugins/wh-finder/index.fonts.css') }}" rel="stylesheet">
+    <link href="{{ asset('bundles/whmedia/plugins/wh-finder/index.styles.css') }}" rel="stylesheet">
+</head>
+<body class="app header-fixed sidebar-fixed breadcrumb-fixed aside-menu-fixed aside-menu-hidden">
+<div id=root></div>
+<script type="text/javascript" src="{{ asset('bundles/whmedia/plugins/wh-finder/index.bundle.js') }}"></script>
+</body>
+</html>

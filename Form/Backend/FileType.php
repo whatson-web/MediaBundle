@@ -2,11 +2,14 @@
 
 namespace WH\MediaBundle\Form\Backend;
 
-use FM\ElfinderBundle\Form\Type\ElFinderType;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use WH\MediaBundle\Entity\File;
 
 /**
  * Class FileType
@@ -15,6 +18,12 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class FileType extends AbstractType
 {
+    private $entityManager;
+
+    public function __construct(EntityManagerInterface $entityManager)
+    {
+        $this->entityManager = $entityManager;
+    }
 
     /**
      * @param FormBuilderInterface $builder
@@ -24,21 +33,29 @@ class FileType extends AbstractType
     {
         $builder
             ->add(
-                'url',
-                ElFinderType::class,
+                'id',
+                WHFinderType::class,
                 [
-                    'label'    => 'Url :',
-                    'required' => false,
-                ]
-            )
-            ->add(
-                'alt',
-                TextType::class,
-                [
-                    'label'    => 'Texte alternatif (alt) :',
+                    'label'    => false,
                     'required' => false,
                 ]
             );
+
+        $builder->addEventListener(
+            FormEvents::SUBMIT,
+            function (FormEvent $event) {
+                $data = $this->entityManager->getRepository('WHMediaBundle:File')->get(
+                    'one',
+                    [
+                        'conditions' => [
+                            'file.id' => $event->getData()->getId(),
+                        ],
+                    ]
+                );
+
+                $event->setData($data);
+            }
+        );
     }
 
     /**
@@ -60,5 +77,4 @@ class FileType extends AbstractType
     {
         return 'wh_mediabundle_file';
     }
-
 }

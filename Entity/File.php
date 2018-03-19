@@ -3,13 +3,12 @@
 namespace WH\MediaBundle\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
-use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\SearchFilter;
 use ApiPlatform\Core\Bridge\Doctrine\Orm\Filter\OrderFilter;
 use ApiPlatform\Core\Annotation\ApiFilter;
+use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 use WH\LibBundle\Filter\SearchAnnotation as Searchable;
-
 
 /**
  * File
@@ -24,14 +23,8 @@ use WH\LibBundle\Filter\SearchAnnotation as Searchable;
  * )
  * @Searchable({"url", "alt", "description"})
  */
-class File {
-
-
-    public function __construct()
-    {
-        $this->updated = new \DateTime();
-    }
-
+class File
+{
     /**
      * @return mixed|string
      */
@@ -86,11 +79,12 @@ class File {
      */
     public function getUrlLast()
     {
-
         $last = '';
-        if($this->getUpdated()) $last = $this->updated->getTimestamp();
-        return $this->url.'?last='.$last;
+        if ($this->getUpdated()) {
+            $last = $this->updated->getTimestamp();
+        }
 
+        return $this->url.'?last='.$last;
     }
 
     /**
@@ -121,14 +115,6 @@ class File {
     private $description;
 
     /**
-     * @var string
-     *
-     * @Gedmo\Translatable
-     * @ORM\Column(name="translatableUrl", type="string", length=255, nullable=true)
-     */
-    private $translatableUrl;
-
-    /**
      * @var \DateTime
      * @Gedmo\Timestampable(on="update")
      * @ORM\Column(name="updated", type="datetime", nullable=true)
@@ -143,6 +129,20 @@ class File {
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Set id
+     *
+     * @param string $id
+     *
+     * @return File
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
     }
 
     /**
@@ -194,30 +194,6 @@ class File {
     }
 
     /**
-     * Set translatableUrl
-     *
-     * @param string $translatableUrl
-     *
-     * @return File
-     */
-    public function setTranslatableUrl($translatableUrl)
-    {
-        $this->translatableUrl = $translatableUrl;
-
-        return $this;
-    }
-
-    /**
-     * Get translatableUrl
-     *
-     * @return string
-     */
-    public function getTranslatableUrl()
-    {
-        return $this->translatableUrl;
-    }
-
-    /**
      * Set setDescription
      *
      * @param string $description
@@ -240,7 +216,6 @@ class File {
     {
         return $this->description;
     }
-
 
     /**
      * Set updated
@@ -265,7 +240,4 @@ class File {
     {
         return $this->updated;
     }
-
-
 }
-

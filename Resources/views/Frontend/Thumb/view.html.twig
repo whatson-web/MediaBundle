@@ -6,7 +6,7 @@
                     <source media="(max-width: {{ maxWidth }}px)" srcset="{{ wh_media_baseurl ~ imagePath }}">
                 {% endfor %}
             {% endif %}
-            <img src="{{ wh_media_baseurl ~ images['default'] }}" alt="{{ file.alt }}" class="img-responsive">
+            <img src="{{ wh_media_baseurl ~ images['default'] }}" class="img-responsive">
         </picture>
     {% endif %}
     {% if url is defined %}
