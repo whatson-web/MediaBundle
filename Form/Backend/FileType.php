@@ -44,16 +44,21 @@ class FileType extends AbstractType
         $builder->addEventListener(
             FormEvents::SUBMIT,
             function (FormEvent $event) {
-                $data = $this->entityManager->getRepository('WHMediaBundle:File')->get(
-                    'one',
-                    [
-                        'conditions' => [
-                            'file.id' => $event->getData()->getId(),
-                        ],
-                    ]
-                );
 
-                $event->setData($data);
+                if ($event->getData()) {
+                    $data = $this->entityManager->getRepository('WHMediaBundle:File')->get(
+                        'one',
+                        [
+                            'conditions' => [
+                                'file.id' => $event->getData()->getId(),
+                            ],
+                        ]
+                    );
+
+                    $event->setData($data);
+
+                }
+
             }
         );
     }
