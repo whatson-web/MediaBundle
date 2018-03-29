@@ -72,6 +72,8 @@ class ThumbExtension extends \Twig_Extension
         );
         $server = $serverFactory->getServer();
 
+        $images = [];
+
         if ($format != '' && !empty($mediaConfig['formats'][$format])) {
             $formatConfig = $mediaConfig['formats'][$format];
 
