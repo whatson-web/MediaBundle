@@ -13,7 +13,8 @@ use Symfony\Component\Routing\Annotation\Route;
 class FinderController extends Controller
 {
     /**
-     * @Route("/wh_finder", name="bk_wh_media_file_finder")
+     * @Route("/wh_finder", options = { "expose" = true }, name="bk_wh_media_file_finder")
+
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
