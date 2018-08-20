@@ -33,6 +33,22 @@ class FileType extends AbstractType
     {
         $builder
             ->add(
+                'url',
+                TextType::class,
+                [
+                    'label'    => 'Url :',
+                    'required' => false,
+                ]
+            )
+            ->add(
+                'alt',
+                TextType::class,
+                [
+                    'label'    => 'Texte alternatif (alt) :',
+                    'required' => false,
+                ]
+            )
+            ->add(
                 'id',
                 WHFinderType::class,
                 [
