@@ -89,42 +89,48 @@ class ThumbExtension extends \Twig_Extension
             $server->setResponseFactory($response);
 
             if ($server->sourceFileExists($fileUrl)) {
-                try {
-                    $cachedPath = $server->makeImage(
-                        $server->getSourcePath($fileUrl),
-                        $glideData
-                    );
 
-                    $images['default'] = '/'.$cachedPath;
-                    if ($getUrl) {
-                        return $this->container->get('twig')->render(
-                            'WHMediaBundle:Frontend/Thumb:view.html.twig',
-                            [
-                                'url' => $images['default'],
-                            ]
+                if ($filesystem->getSize($fileUrl) < 1000000 ) {
+                    try {
+                        $cachedPath = $server->makeImage(
+                            $server->getSourcePath($fileUrl),
+                            $glideData
                         );
-                    }
 
-                    if (!empty($formatConfig['breakpointConfigurations'])) {
-
-                        foreach ($formatConfig['breakpointConfigurations'] as $maxWidth => $configuration) {
-                            foreach ($configuration as $key => $value) {
-                                if ($value) {
-                                    $glideData[$key] = $value;
-                                }
-                            }
-
-                            $cachedPath = $server->makeImage(
-                                $server->getSourcePath($fileUrl),
-                                $glideData
+                        $images['default'] = '/'.$cachedPath;
+                        if ($getUrl) {
+                            return $this->container->get('twig')->render(
+                                'WHMediaBundle:Frontend/Thumb:view.html.twig',
+                                [
+                                    'url' => $images['default'],
+                                ]
                             );
-
-                            $images['responsive'][$maxWidth] = '/'.$cachedPath;
                         }
-                        ksort($images['responsive']);
+
+                        if (!empty($formatConfig['breakpointConfigurations'])) {
+
+                            foreach ($formatConfig['breakpointConfigurations'] as $maxWidth => $configuration) {
+                                foreach ($configuration as $key => $value) {
+                                    if ($value) {
+                                        $glideData[$key] = $value;
+                                    }
+                                }
+
+                                $cachedPath = $server->makeImage(
+                                    $server->getSourcePath($fileUrl),
+                                    $glideData
+                                );
+
+                                $images['responsive'][$maxWidth] = '/'.$cachedPath;
+                            }
+                            ksort($images['responsive']);
+                        }
+                    } catch (ContextErrorException $e) {
                     }
-                } catch (ContextErrorException $e) {
+                } else {
+                    return false;
                 }
+
             }
         }
 
